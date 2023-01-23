@@ -46,6 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _passwordController = TextEditingController(text: 'kiran123');
 
   _saveStudent() async {
+    debugPrint('saving');
     Student student = Student(
       fname: _fnameController.text,
       lname: _lnameController.text,
@@ -81,6 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   _showMessage(int status) {
+    debugPrint('$status');
     if (status > 0) {
       showSnackbar(context, 'Successfully added student', Colors.green);
     } else {
@@ -202,7 +204,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               .map(
                                 (batch) => DropdownMenuItem(
                                   value: batch,
-                                  child: Text(batch!.batchName),
+                                  child: Text(batch!.batchName!),
                                 ),
                               )
                               .toList(),
@@ -306,7 +308,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       onPressed: () {
                         if (_key.currentState!.validate()) {
+                          debugPrint('Student Form validated');
                           _saveStudent();
+                        } else {
+                          debugPrint('Student Form Not validated');
                         }
                       },
                       label: const Text('Register student'),
